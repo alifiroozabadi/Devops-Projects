@@ -18,17 +18,18 @@ jobs:
         with:
           terraform_version: 1.6.0
 
-      - name: Initialize Terraform
-        run: terraform init
-
-      - name: Plan Terraform Changes
-        run: terraform plan -out=tfplan
-
-      - name: Apply Terraform Changes
-        run: terraform apply -auto-approve tfplan
+      - name: Plan and Apply Task1
+        run: |
+          cd task1
+          terraform init
+          terraform plan -out=tfplan
+          terraform apply -auto-approve tfplan 
+        working-directory: ${{ github.workspace }}
 
       - name: Configure with Ansible
-        run: ansible-playbook your-playbook.yml
+        run: |
+          cd task2
+          ansible-playbook -kK docker-iptable.yaml -kK
 
       - name: Build and Push Docker Image
         run: |
