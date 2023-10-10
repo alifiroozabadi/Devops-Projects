@@ -1,7 +1,3 @@
-Certainly! Here's a template for a README file for your Terraform repository:
-
----
-
 # Terraform Infrastructure as Code Repository
 
 ## Overview
