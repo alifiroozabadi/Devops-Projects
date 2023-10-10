@@ -1,0 +1,43 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Plan Terraform Changes
+        run: terraform plan -out=tfplan
+
+      - name: Apply Terraform Changes
+        run: terraform apply -auto-approve tfplan
+
+      - name: Configure with Ansible
+        run: ansible-playbook your-playbook.yml
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t your-docker-image-name .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push your-docker-image-name
+
+      - name: Deploy
+        run: |
+          # Perform deployment actions here
+          # e.g., deploy to a Kubernetes cluster or VM
+
