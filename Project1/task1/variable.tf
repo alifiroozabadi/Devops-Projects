@@ -89,5 +89,5 @@ variable "vm_ram" {
 
 variable "vm_name" {
   description = "The name of the vSphere virtual machines and the hostname of the machine"
-  default  = "devops-project"
+  default  = "devops-projects"
 }
