@@ -37,6 +37,6 @@ jobs:
         run: |        
           cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task2     
           sudo docker build -t test .
-          docker run -d -p 443:443
+          docker run -d -p 443:443 test
 
 
