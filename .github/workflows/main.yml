@@ -37,7 +37,6 @@ jobs:
         run: |        
           cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task2     
           sudo docker build -t test .
-          sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          sudo docker push test
+          docker run -d -p 443:443
 
 
