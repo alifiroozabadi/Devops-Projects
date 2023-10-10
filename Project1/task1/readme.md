@@ -77,7 +77,3 @@ We welcome contributions to this repository! If you encounter issues or have ide
 ## License
 
 This project is licensed under the [MIT License](LICENSE). See the [LICENSE](LICENSE) file for details.
-
----
-
-Replace the placeholders (e.g., `yourusername/your-repo`) with the actual repository information. Customize the content according to your specific Terraform project and requirements.
