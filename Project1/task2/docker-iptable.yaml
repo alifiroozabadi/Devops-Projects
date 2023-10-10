@@ -1,0 +1,112 @@
+---
+- hosts: all
+  become: yes 
+  become_method: sudo
+  tasks:
+    - name: Remove default nameserver entry
+      lineinfile:
+        path: /etc/resolv.conf
+        state: absent
+        regexp: '^nameserver\s+'
+        
+    - name: Update DNS nameservers
+      lineinfile:
+        path: /etc/resolv.conf
+        line: "nameserver 178.22.122.100"
+        state: present
+        
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+      
+    - name: Install Docker dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+        
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+        
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        
+      
+    - name: Install python required packages
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - python-pip
+      become: yes
+      
+    - name: Install Flask and psutil
+      pip:
+        name:
+          - Flask
+          - psutil
+        executable: pip3
+      become: yes
+      
+    - name: Create app folder
+      file:
+        path: /home/arya/app
+        state: directory
+        owner: arya
+        mode: 0755
+        
+    - name: Copy Flask application code
+      copy:
+        src: app.py
+        dest: /home/arya/app/app.py
+        
+    - name: Copy Dockerfile application code
+      copy:
+        src: Dockerfile
+        dest: /home/arya/app/Dockerfile
+        
+    - name: Copy requirements.txt application code
+      copy:
+        src: requirements.txt
+        dest: /home/arya/app/requirements.txt
+        
+    - name: Allow SSH (port 22)
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 22
+        jump: ACCEPT
+    - name: Allow HTTP (port 80)
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 80
+        jump: ACCEPT
+    - name: Allow HTTPS (port 443)
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 443
+        jump: ACCEPT
+    - name: Allow DNS (port 53)
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 53
+        jump: ACCEPT
+    - name: Deny all other incoming traffic
+      iptables:
+        chain: INPUT
+        jump: DROP
