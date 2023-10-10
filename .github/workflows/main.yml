@@ -35,12 +35,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t your-docker-image-name .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push your-docker-image-name
+          sudo docker build -t test .
+          sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          sudo docker push test
 
-      - name: Deploy
-        run: |
-          # Perform deployment actions here
-          # e.g., deploy to a Kubernetes cluster or VM
 
