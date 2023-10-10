@@ -20,7 +20,7 @@ jobs:
 
       - name: Plan and Apply Task1
         run: |
-          cd task1
+          cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task1
           terraform init
           terraform plan -out=tfplan
           terraform apply -auto-approve tfplan 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Configure with Ansible
         run: |
-          cd task2
+          cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task2
           ansible-playbook -kK docker-iptable.yaml -kK
 
       - name: Build and Push Docker Image
