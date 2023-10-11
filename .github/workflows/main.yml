@@ -24,7 +24,7 @@ jobs:
           terraform init
           terraform plan -out=tfplan
           terraform apply -auto-approve tfplan 
-        working-directory: ${{ github.workspace }}
+        working-directory:  /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task1
 
       - name: Configure with Ansible
         env:
