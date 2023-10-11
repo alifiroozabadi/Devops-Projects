@@ -29,9 +29,11 @@ jobs:
       - name: Configure with Ansible
         env:
          ANSIBLE_PASSWORD: ${{ secrets.ANSIBLE_PASSWORD }}
+         ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
+         ADDITIONAL_PASSWORD: ${{ secrets.ADDITIONAL_PASSWORD }}
         run: |
           cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task2
-          ansible-playbook docker-iptable.yaml --become -K
+          ansible-playbook docker-iptable.yaml --become -K -i inventory.ini
 
       - name: Build and Push Docker Image
         run: |        
