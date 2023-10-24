@@ -2,7 +2,7 @@
 - hosts: all
   become: yes 
   become_method: sudo
-  become_pass: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
+  ansible_become_pass: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
   tasks:
     - name: Remove default nameserver entry
       lineinfile:
