@@ -73,7 +73,3 @@ We welcome contributions to this repository! If you have improvements, suggestio
 ## License
 
 This project is licensed under the [MIT License](LICENSE). See the [LICENSE](LICENSE) file for details.
-
----
-
-Replace the placeholders (e.g., `yourusername/dockerized-flask-app`) with the actual repository information. Customize the content as needed to reflect the purpose and structure of your Dockerized Flask application with Ansible iptables setup repository.
