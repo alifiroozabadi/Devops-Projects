@@ -32,7 +32,7 @@ jobs:
          ADDITIONAL_PASSWORD: ${{ secrets.ADDITIONAL_PASSWORD }}
         run: |
           cd /home/admin/actions-runner/_work/Devops-Projects/Devops-Projects//Project1/task2
-          ansible-playbook docker-iptable.yaml --become -K -i inventory.ini
+          ansible-playbook docker-iptable.yaml -i inventory.ini
 
       - name: Build and Push Docker Image
         run: |        
